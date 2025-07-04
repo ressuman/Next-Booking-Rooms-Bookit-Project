@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-//import checkAuth from "./app/actions/checkAuth";
+import checkAuth from "./app/actions/checkAuth";
 
 const protectedPaths = ["/bookings", "/rooms/add", "/rooms/my"];
 
 export async function middleware(request) {
   const { pathname } = request.nextUrl;
 
-  console.log(`Path: ${pathname}`);
+  //console.log(`Path: ${pathname}`);
 
   // Skip if not a protected path
   const isProtected = protectedPaths.some((path) => pathname.startsWith(path));
@@ -15,18 +15,18 @@ export async function middleware(request) {
     return NextResponse.next();
   }
 
-  console.log(`Protected: ${isProtected} `);
+  //console.log(`Protected: ${isProtected} `);
 
   try {
-    // Replace with actual auth check
-    // const { isAuthenticated } = await checkAuth();
-    const isAuthenticated = false;
+    //  Auth check
+    const { isAuthenticated } = await checkAuth();
 
-    console.log(` Authenticated: ${isAuthenticated}`);
+    //console.log(` Authenticated: ${isAuthenticated}`);
 
     if (!isAuthenticated) {
       const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.set("from", pathname);
+
       return NextResponse.redirect(loginUrl);
     }
 
@@ -34,6 +34,7 @@ export async function middleware(request) {
   } catch (error) {
     console.error("Authentication error:", error);
     const loginUrl = new URL("/login", request.url);
+
     return NextResponse.redirect(loginUrl);
   }
 }
