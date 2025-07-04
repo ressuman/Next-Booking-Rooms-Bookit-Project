@@ -1,9 +1,10 @@
 export default function Heading({ title }) {
   return (
-    <section className="bg-white mb-5 shadow px-4 py-4">
-      <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+    <div className="mb-8">
+      <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
         {title}
       </h1>
-    </section>
+      <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full"></div>
+    </div>
   );
 }
