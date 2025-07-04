@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import createSession from "../actions/createSession";
 import { toast } from "react-toastify";
+import useAuth from "@/hooks/use-auth.hook";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,6 +14,7 @@ export default function LoginPage() {
 
   const router = useRouter();
   const [state, formAction] = useFormState(createSession, {});
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
 
   useEffect(() => {
     if (state.error) {
@@ -21,7 +23,7 @@ export default function LoginPage() {
     }
     if (state.success) {
       toast.success("Logged in successfully!");
-      //setIsAuthenticated(true);
+      setIsAuthenticated(true);
       router.push("/");
     }
   }, [state]);

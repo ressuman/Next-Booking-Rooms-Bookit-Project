@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { toast } from "react-toastify";
+import createUser from "../actions/createUser";
 
 export default function RegisterPage() {
-  // const [state, formAction] = useFormState(createUser, {});
+  const [state, formAction] = useFormState(createUser, {});
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -14,16 +16,16 @@ export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0);
 
-  // useEffect(() => {
-  //   if (state.error) {
-  //     toast.error(state.error);
-  //     setIsLoading(false);
-  //   }
-  //   if (state.success) {
-  //     toast.success("Account created successfully! You can now log in.");
-  //     router.push("/login");
-  //   }
-  // }, [state]);
+  useEffect(() => {
+    if (state.error) {
+      toast.error(state.error);
+      setIsLoading(false);
+    }
+    if (state.success) {
+      toast.success("Account created successfully! You can now log in.");
+      router.push("/login");
+    }
+  }, [state]);
 
   const checkPasswordStrength = (password) => {
     let strength = 0;
@@ -84,10 +86,7 @@ export default function RegisterPage() {
 
         {/* Form */}
         <div className="bg-white/80 backdrop-blur-sm shadow-xl rounded-2xl p-8 border border-white/20">
-          <form
-            //action={handleSubmit}
-            className="space-y-6"
-          >
+          <form action={formAction} className="space-y-6">
             {/* Name Field */}
             <div>
               <div className="relative">
