@@ -1,10 +1,13 @@
 "use server";
 
 import { createAdminClient } from "@/config/appwrite";
-import { revalidatePath } from "next/cache";
+//import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { unstable_noStore as noStore } from "next/cache";
 
 async function getAllRooms() {
+  noStore();
+
   try {
     const { databases } = await createAdminClient();
 
@@ -15,7 +18,7 @@ async function getAllRooms() {
     );
 
     // Revalidate the cache for this path
-    revalidatePath("/", "layout");
+    //revalidatePath("/", "layout");
 
     return rooms;
   } catch (error) {
