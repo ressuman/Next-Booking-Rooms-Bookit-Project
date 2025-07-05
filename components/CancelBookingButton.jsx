@@ -3,6 +3,7 @@
 import { toast } from "react-toastify";
 import { FaSpinner, FaTimes } from "react-icons/fa";
 import { useState } from "react";
+import cancelBooking from "@/app/actions/cancelBooking";
 
 export default function CancelBookingButton({ bookingId }) {
   const [isCancelling, setIsCancelling] = useState(false);
