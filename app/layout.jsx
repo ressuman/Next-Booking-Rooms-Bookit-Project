@@ -13,6 +13,8 @@ export const metadata = {
     "Easily book a meeting or conference room for productive team sessions and events.",
 };
 
+export const revalidate = 60;
+
 export default function RootLayout({ children }) {
   return (
     <AuthWrapper>

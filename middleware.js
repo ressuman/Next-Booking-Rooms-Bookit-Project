@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import checkAuth from "./app/actions/checkAuth";
 
-const protectedPaths = ["/bookings", "/rooms/add", "/rooms/my"];
+const protectedPaths = [
+  "/bookings",
+  "/rooms/add",
+  "/rooms/my",
+  "/rooms/edit/:id",
+];
 
 export async function middleware(request) {
   const { pathname } = request.nextUrl;

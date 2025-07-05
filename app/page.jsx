@@ -2,8 +2,14 @@ import Heading from "@/components/Heading";
 import RoomCard from "@/components/RoomCard";
 //import rooms from "@/data/rooms.json";
 import getAllRooms from "./actions/getAllRooms";
+import { unstable_noStore as noStore } from "next/cache";
 
-export default async function Home() {
+export const dynamic = "force-dynamic";
+export const revalidate = 60;
+
+export default async function HomePage() {
+  noStore();
+
   const rooms = await getAllRooms();
 
   return (
