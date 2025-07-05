@@ -7,9 +7,16 @@ import BookingForm from "@/components/BookingForm";
 import getSingleRoom from "@/app/actions/getSingleRoom";
 
 export default async function RoomPage({ params }) {
+  const bucketId = process.env.NEXT_PUBLIC_APPWRITE_STORAGE_BUCKET_ROOMS;
+  const projectId = process.env.NEXT_PUBLIC_APPWRITE_PROJECT;
+
   const { id } = params;
 
   const room = await getSingleRoom(id);
+
+  const imageUrl = `https://cloud.appwrite.io/v1/storage/buckets/${bucketId}/files/${room.image}/view?project=${projectId}`;
+
+  const imageSrc = room.image ? imageUrl : "/images/no-image.jpg";
 
   if (!room) {
     return (
@@ -41,7 +48,7 @@ export default async function RoomPage({ params }) {
             <div className="lg:w-1/2">
               <div className="relative h-64 sm:h-80 lg:h-96">
                 <Image
-                  src={`/images/rooms/${room.image}`}
+                  src={imageSrc}
                   alt={room.name}
                   fill
                   className="object-cover"
